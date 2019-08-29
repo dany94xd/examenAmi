@@ -5,6 +5,6 @@ const webapp = require('../controllers/webapp.controller');
 
 router.get('/data/:id', webapp.getMatriculaData);
 router.get('/userdata/:id', webapp.getUserData);
-router.get('/userupdatesaldo/:id', webapp.userUpdateSaldo);
+//router.get('/userupdatesaldo/:id', webapp.userUpdateSaldo);
 
 module.exports = router;

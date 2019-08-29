@@ -17,6 +17,7 @@ vendedorCtrl.createVendedor = async (req, res, next) => {
         idUser: req.body.idUser,
         idPersona: req.body.idPersona,
         idLogros: req.body.idLogros,
+        cedula:req.body.cedula,
         NroVentas: req.body.NroVentas,
         salario: req.body.salario,
         user: req.body.user,
@@ -42,6 +43,7 @@ vendedorCtrl.editVendedor = async (req, res, next) => {
         idPersona: req.body.idPersona,
         idLogros: req.body.idLogros,
         //matricula: req.body.matricula,
+        cedula:req.body.cedula,
         NroVentas: req.body.NroVentas,
         salario: req.body.salario,
         user: req.body.user,
@@ -122,6 +124,7 @@ vendedorCtrl.loginVendedor = (req, res, next) => {
                     idPersona: user.idPersona,
                     idLogros: user.idLogros,
                     NroVentas: user.NroVentas,
+                    cedula:user.cedula,
                     email: user.email,
                     accesToken: accesToken,
                     expiresIn: expiresIn

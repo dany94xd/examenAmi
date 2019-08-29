@@ -5,7 +5,9 @@ const { Schema } = mongoose;
 const vendedorSchema = new Schema({
     idUser: { type: String, required: false},
     idPersona: { type: String, required: false },
+    idLogros:{type: String, required: false },
     //idRol: { type: String, required: false},
+    cedula:{type:String,required:false},
   	NroVentas:{type:Number,required:false},
     salario:{type:Number,required:false},
     user:{type:String,required:false},
