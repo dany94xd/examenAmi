@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-//const URI = 'mongodb://localhost/clientes';
+const URI = 'mongodb://localhost/vendedores';
 
-const DB = 'mongodb://clieami:190994@162.212.130.145:27017/clientes';
+//const DB = 'mongodb://clieami:190994@162.212.130.145:27017/clientes';
 
 //const DB = 'mongodb://newUser:korn12345@ds225382.mlab.com:25382/apibookz';
 
