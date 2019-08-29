@@ -2,7 +2,7 @@ const Logro = require('../models/logro');
 
 const logroCtrl = {};
 
-logroCtrl.getlogros = async (req, res, next) => {
+logroCtrl.getLogros = async (req, res, next) => {
     const logros = await Logro.find();
     res.json(logros);
 };
@@ -10,11 +10,12 @@ logroCtrl.getlogros = async (req, res, next) => {
 logroCtrl.createLogro = async (req, res, next) => {
     const logro = new Logro({
         idLogro: req.body.idLogro,
+        meta: req.body.meta,
+        bonificacion: req.body.bonificacion,
         nombre: req.body.nombre,
         descripcion: req.body.descripcion,
-        minbotella: req.body.minbotella,
-        maxbotella: req.body.maxbotella,
-        idInstitucion: req.body.idInstitucion
+        minVentas: req.body.minVentas,
+        maxVentas: req.body.maxVentas
     });
     await logro.save();
     res.json({ status: 'logro created' });
@@ -30,11 +31,12 @@ logroCtrl.editLogro = async (req, res, next) => {
     const { id } = req.params;
     const logro = {
         idLogro: req.body.idLogro,
+        meta: req.body.meta,
+        bonificacion: req.body.bonificacion,
         nombre: req.body.nombre,
         descripcion: req.body.descripcion,
-        minbotella: req.body.minbotella,
-        maxbotella: req.body.maxbotella,
-        idInstitucion: req.body.idInstitucion
+        minVentas: req.body.minVentas,
+        maxVentas: req.body.maxVentas
     };
     await Logro.findByIdAndUpdate(id, { $set: logro }, { new: true });
     res.json({ status: 'logro Updated' });
