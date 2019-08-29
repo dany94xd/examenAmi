@@ -1,4 +1,4 @@
-const Venta = requiere('../models/venta');
+const Venta = require('../models/venta');
 
 const ventasCtrl = {};
 

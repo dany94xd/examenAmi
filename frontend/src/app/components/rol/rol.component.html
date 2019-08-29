@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form #rolForm="ngForm" (ngSubmit)="addRol(rolForm)">
+            <input type="hidden" name="_id" #_id="ngModel" 
+            [(ngModel)]="rolService.selectedRol._id">
+            <div class="row">
+              <div class="input-field col-s12">
+                <input type="text" name="idRol" #name="ngModel" 
+                [(ngModel)]="rolService.selectedRol.idRol" placeholder="idRol">
+              </div>
+              <div class="input-field col-s12">
+                <input type="text" name="tipoRol" #name="ngModel" 
+                [(ngModel)]="rolService.selectedRol.tipoRol" placeholder="Tipo Rol">
+              </div>
+              <div class="input-field col-s12">
+                <input type="text" name="descripcion" #name="ngModel" 
+                [(ngModel)]="rolService.selectedRol.descripcion" placeholder="Descripcion del Rol">
+              </div>              
+              <div class="card-action">
+                <div class="input-field col-s12">
+                  <button class="btn right  purple darken-4" (click)="resetForm(rolForm)">Limpiar</button>
+                  <button class="btn ">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+      <table class="striped highlight black-text">
+        <thead>
+          <th>idRol</th>
+          <th>tipoRol</th>
+          <th>Descripcion</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let rol of rolService.rols">
+            <td>{{ rol.idRol }}</td>
+            <td>{{ rol.tipoRol }}</td>
+            <td>{{ rol.descripcion }}</td>
+            <td>
+              <a (click)="editRol(rol)">
+                <i class="material-icons">edit</i>
+              </a>
+              <a (click)="deleteRol(rol._id, rolForm)">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

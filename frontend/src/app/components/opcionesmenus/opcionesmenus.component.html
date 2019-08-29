@@ -1,0 +1,60 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form #opcionesmenuForm="ngForm" (ngSubmit)="addOpcionesmenu(opcionesmenuForm)">
+            <input type="hidden" name="_id" #_id="ngModel" 
+            [(ngModel)]="opcionesmenuService.selectedOpcionesmenu._id">
+            <div class="row">
+              <div class="input-field col-s12">
+                <input type="text" name="idOpcionMenu" #name="ngModel" 
+                [(ngModel)]="opcionesmenuService.selectedOpcionesmenu.idOpcionMenu" placeholder="idOpcionMenu">
+              </div>
+              <div class="input-field col-s12">
+                <input type="text" name="idMenu" #name="ngModel" 
+                [(ngModel)]="opcionesmenuService.selectedOpcionesmenu.idMenu" placeholder="idMenu">
+              </div>
+              <div class="input-field col-s12">
+                <input type="text" name="url" #name="ngModel" 
+                [(ngModel)]="opcionesmenuService.selectedOpcionesmenu.url" placeholder="Direccion url">
+              </div>
+              <div class="card-action">
+                <div class="input-field col-s12">
+                  <button class="btn right  purple darken-4" (click)="resetForm(opcionesmenuForm)">Limpiar</button>
+                  <button class="btn ">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+      <table class="striped highlight black-text">
+        <thead>
+          <th>idOpcionMenu</th>
+          <th>idMenu</th>
+          <th>url</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let opcionesmenu of opcionesmenuService.opcionesMenu">
+            <td>{{ opcionesmenu.idOpcionMenu }}</td>
+            <td>{{ opcionesmenu.idMenu }}</td>
+            <td>{{ opcionesmenu.url }}</td>
+            <td>
+              <a (click)="editOpcionesmenu(opcionesmenu)">
+                <i class="material-icons">edit</i>
+              </a>
+              <a (click)="deleteOpcionesmenu(opcionesmenu._id, opcionesmenuForm)">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

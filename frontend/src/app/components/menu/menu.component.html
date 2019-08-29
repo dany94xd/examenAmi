@@ -1,0 +1,55 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form #menuForm="ngForm" (ngSubmit)="addmenu(menuForm)">
+            <input type="hidden" name="_id" #_id="ngModel" 
+            [(ngModel)]="menuService.selectedmenu._id">
+            <div class="row">
+              <div class="input-field col-s12">
+                <input type="text" name="idMenu" #name="ngModel" 
+                [(ngModel)]="menuService.selectedmenu.idMenu" placeholder="idMenu">
+              </div>
+              <div class="input-field col-s12">
+                <input type="text" name="idRol" #name="ngModel" 
+                [(ngModel)]="menuService.selectedmenu.idRol" placeholder="idRol">
+              </div>
+              <div class="card-action">
+                <div class="input-field col-s12">
+                  <button class="btn right  purple darken-4" (click)="resetForm(menuForm)">Limpiar</button>
+                  <button class="btn ">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+      <table class="striped highlight black-text">
+        <thead>
+          <th>idMenu</th>
+          <th>idRol</th>
+          <th>Operations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Menu of menuService.Menu">
+            <td>{{ menu.idMenu }}</td>
+            <td>{{ menu.idRol }}</td>
+
+            <td>
+              <a (click)="editmenu(menu)">
+                <i class="material-icons">edit</i>
+              </a>
+              <a (click)="deletemenu(menu._id, menuForm)">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

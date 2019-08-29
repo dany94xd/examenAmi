@@ -1,4 +1,4 @@
-const Usuario = require('../models/vendedor');
+const Usuario = require('../models/usuario');
 const Persona = require('../models/persona');
 
 const mobileAppCtrl = {};
@@ -8,18 +8,18 @@ mobileAppCtrl.getUsuarioData = async (req, res, next) => {
     
     const { id } = req.params;
 
-    const usuarioData = await Vendedor.find({ 'user': id }).select({ user: 1, idPersona: 1, NroVentas: 1, idLogros: 1, salario: 1 });
+    const usuarioData = await Usuario.find({ 'user': id }).select({ user: 1, idPersona: 1, NroBotellas: 1, saldoVerde: 1, saldoActual: 1 });
 
     res.json(usuarioData);
 };
 
 //Matricula
-mobileAppCtrl.getCedulaData = async (req, res, next) => {
+mobileAppCtrl.getMatriculaData = async (req, res, next) => {
     const { id } = req.params;
     
-    const usuarioData = await Vendedor.find({ 'cedula': id}).select({  cedula:1, NroVentas: 1, salario: 1, idLogros: 1 });
+    const usuarioData = await Usuario.find({ 'matricula': id}).select({ idInstitucion:1, matricula:1, NroBotellas: 1, saldoVerde: 1, saldoActual: 1 });
 
- const personaData = await Persona.find({ 'cedula': id }).select({ nombre: 1, apellido: 1});
+ const personaData = await Persona.find({ 'matricula': id }).select({ nombre: 1, apellido: 1});
  
     const dataFinal= [await usuarioData, await personaData];
     

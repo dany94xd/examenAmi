@@ -4,16 +4,8 @@ const {
 } = mongoose;
 
 const logroSchema = new Schema({
-    idlogro: {
+    idLogro: {
         type: String,
-        required: false
-    },
-    meta: {
-        type: Boolean,
-        required: false
-    },
-    bonificacion: {
-        type: Number,
         required: false
     },
     nombre: {
@@ -24,15 +16,18 @@ const logroSchema = new Schema({
         type: String,
         required: false
     },
-    minVentas: {
+    minbotella: {
         type: Number,
         required: false
     },
-    maxVentas: {
+    maxbotella: {
         type: Number,
         required: false
     },
-
+    idInstitucion: {
+        types: String,
+        required: false
+    }
 
 });
 
