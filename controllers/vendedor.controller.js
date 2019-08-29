@@ -1,178 +1,135 @@
 const Vendedor = require('../models/vendedor');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
-const SECRET_KEY ='secretkey94'
+const SECRET_KEY = 'secretkey94'
 
 //mongoose.set('useCreateIndex',true);
 
 const vendedorCtrl = {};
 
-vendedorCtrl.getUsuarios = async (req, res, next) => {
-    const usuarios = await Usuario.find();
-    res.json(usuarios);
+vendedorCtrl.getVendedores = async (req, res, next) => {
+    const vendedores = await Vendedor.find();
+    res.json(vendedores);
 };
 
-vendedorCtrl.createUsuario = async (req, res, next) => {
-    const usuario = new Usuario({
+vendedorCtrl.createVendedor = async (req, res, next) => {
+    const vendedor = new Vendedor({
+        idUser: req.body.idUser,
         idPersona: req.body.idPersona,
         idLogros: req.body.idLogros,
-        idRol: req.body.idRol,
-        idInstitucion: req.body.idInstitucion,
-	matricula: req.body.matricula,
-        NroBotellas: req.body.NroBotellas,
-        saldoActual: req.body.saldoActual,
-        saldoVerde: req.body.saldoVerde,
-        UrlFoto: req.body.UrlFoto,
+        NroVentas: req.body.NroVentas,
+        salario: req.body.salario,
         user: req.body.user,
-      password: req.body.password,
+        password: req.body.password,
         //password: bcrypt.hashSync(req.body.password),
         email: req.body.email
     });
-    await usuario.save();
-    res.json({status: 'Usuario created'});
+    await vendedor.save();
+    res.json({ status: 'Vendedor created' });
 };
 
-vendedorCtrl.getUsuario = async (req, res, next) => {
+vendedorCtrl.getVendedor = async (req, res, next) => {
     const { id } = req.params;
-    const usuario = await Usuario.findById(id);
-    res.json(usuario);
+    const vendedor = await Vendedor.findById(id);
+    res.json(vendedor);
 };
 
-vendedorCtrl.editUsuario = async (req, res, next) => {
+vendedorCtrl.editVendedor = async (req, res, next) => {
     const { id } = req.params;
-    const usuario = {
+    const vendedor = {
 
+        idUser: req.body.idUser,
         idPersona: req.body.idPersona,
         idLogros: req.body.idLogros,
-        idRol: req.body.idRol,
-        idInstitucion: req.body.idInstitucion,
-	matricula: req.body.matricula,
-        NroBotellas: req.body.NroBotellas,
-        saldoActual: req.body.saldoActual,
-        saldoVerde: req.body.saldoVerde,
-        UrlFoto: req.body.UrlFoto,
+        //matricula: req.body.matricula,
+        NroVentas: req.body.NroVentas,
+        salario: req.body.salario,
         user: req.body.user,
-       // password: req.body.password
-        password:bcrypt.hashSync(req.body.password),
-        email:req.body.email
+        password: req.body.password,
+        //password: bcrypt.hashSync(req.body.password),
+        email: req.body.email
+        // password: req.body.password
+       // password: bcrypt.hashSync(req.body.password),
+       
     };
-    await Usuario.findByIdAndUpdate(id, {$set: usuario}, {new: true});
-    res.json({status: 'Usuario Updated'});
+    await Vendedor.findByIdAndUpdate(id, { $set: vendedor }, { new: true });
+    res.json({ status: 'Vendedor Updated' });
 };
 
-// jc--------------------------------------------
-// usuarioCtrl.editUsuario = async (req, res, next) => {
-//     const { id } = req.params;
-//     const usuario = {
-//         NroBotellas: req.body.NroBotellas
-//    };
-//     await Usuario.findByIdAndUpdate(id, {$set: usuario}, {new: true});
-//     res.json({status: 'Usuario Nro Botellas Updated'});
-// };
 
 
 
 
-// usuarioCtrl.editUsuario = async (req, res, next) => {
-//     const { id } = req.params;
-//     const usuario = {
-//         saldoActual: req.body.saldoActual
-//     };
-//     await Usuario.findByIdAndUpdate(id, {$set: usuario}, {new: true});
-//     res.json({status: 'Usuario Saldo Actual Updated'});
-// };
-
-
-// usuarioCtrl.editUsuario = async (req, res, next) => {
-//     const { id } = req.params;
-//     const usuario = {
-//         saldoVerde: req.body.saldoVerde
-//     };
-//     await Usuario.findByIdAndUpdate(id, {$set: usuario}, {new: true});
-//     res.json({status: 'Usuario Saldo Verde Updated'});
-// };
-
-
-// jc--------------------------------------------
-
-
-
-vendedorCtrl.deleteUsuario = async (req, res, next) => {
-    await Usuario.findByIdAndRemove(req.params.id);
-    res.json({status: 'Usuario Deleted'});
+vendedorCtrl.deleteVendedor = async (req, res, next) => {
+    await Vendedor.findByIdAndRemove(req.params.id);
+    res.json({ status: 'Vendedor Deleted' });
 };
 
 
 //Register
-vendedorCtrl.registerUser=async(req,res,next)=>{
-    const newUser = new Usuario({
-        user:req.body.user,
-        password:bcrypt.hashSync(req.body.password)
+vendedorCtrl.registerVendedor = async (req, res, next) => {
+    const newVendedor = new Vendedor({
+        user: req.body.user,
+        password: bcrypt.hashSync(req.body.password)
     })
-    Usuario.create=(newUser,(err,user)=>{
-       if(err)return res.status(500).send('server error');
-       const expiresIn = 24*60*60;
-       const accesToken = jwt.sign({id:user.id},
-           SECRET_KEY,{
-               expiresIn:expiresIn
-           });
-           const dataUser={
-               user:user.user,
-               accesToken:accesToken,
-               expiresIn:expiresIn
-           }
-   
+    Vendedor.create = (newVendedor, (err, user) => {
+        if (err) return res.status(500).send('server error');
+        const expiresIn = 24 * 60 * 60;
+        const accesToken = jwt.sign({ id: user.id },
+            SECRET_KEY, {
+                expiresIn: expiresIn
+            });
+        const dataUser = {
+            user: user.user,
+            accesToken: accesToken,
+            expiresIn: expiresIn
+        }
+
         //response
         //res.send({user});
-        res.send({dataUser});
-   
+        res.send({ dataUser });
+
     })
-   
-   }
+
+}
 
 
 ///login 
 
 
-vendedorCtrl.loginUser=(req,res,next)=>{
-    const userData={
-        user:req.body.user,
-        password:req.body.password
+vendedorCtrl.loginVendedor = (req, res, next) => {
+    const userData = {
+        user: req.body.user,
+        password: req.body.password
     }
 
-    Usuario.findOne({user:userData.user},(err,user)=>{
-        if(err)return res.status(500).send('error en servidor');
-        if (!user){
+    Vendedor.findOne({ user: userData.user }, (err, user) => {
+        if (err) return res.status(500).send('error en servidor');
+        if (!user) {
             //email does not exist
-            res.status(409).send({message:'somthing is worng'});
-    
-        }else {
-            const resultPassword = bcrypt.compareSync(userData.password,user.password);
-            if(resultPassword){
-                const expiresIn=24*60*60;
-                const accesToken = jwt.sign({id:user.id},SECRET_KEY,{
-                    expiresIn:expiresIn
-                }); 
-    
-                const dataUser={
-                    user:user.user,
-                    idRol:user.idRol,
-                    idPersona:user.idPersona,
-                    idLogros:user.idLogros,
-                    idInstitucion:user.idInstitucion,
-                    matricula:user.matricula,
-                    NroBotellas:user.NroBotellas,
-                    saldoActual:user.saldoActual,
-                    saldoVerde:user.saldoVerde,
-                    Urlfoto:user.UrlFoto,
-                    email:user.email,
-                    accesToken:accesToken,
-                    expiresIn:expiresIn
+            res.status(409).send({ message: 'somthing is worng' });
+
+        } else {
+            const resultPassword = bcrypt.compareSync(userData.password, user.password);
+            if (resultPassword) {
+                const expiresIn = 24 * 60 * 60;
+                const accesToken = jwt.sign({ id: user.id }, SECRET_KEY, {
+                    expiresIn: expiresIn
+                });
+
+                const dataUser = {
+                    user: user.user,
+                    idPersona: user.idPersona,
+                    idLogros: user.idLogros,
+                    NroVentas: user.NroVentas,
+                    email: user.email,
+                    accesToken: accesToken,
+                    expiresIn: expiresIn
                 }
-                res.send({dataUser})
-            } else{
+                res.send({ dataUser })
+            } else {
                 //paswword wrong
-                res.status(409).send({message:"error de password"});
+                res.status(409).send({ message: "error de password" });
             }
         }
     })
